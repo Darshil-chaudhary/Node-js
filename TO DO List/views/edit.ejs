@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f2">
+  <title>Edit Task | My To-Do List</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="page-shell page-shell--edit">
+    <header class="page-header">
+      <p class="eyebrow">My To-Do List</p>
+      <h1>Edit task</h1>
+      <p class="intro">Make a change, then save it to your list.</p>
+    </header>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p class="notice notice--error" role="alert"><%= error %></p>
+    <% } %>
+
+    <section class="edit-section" aria-labelledby="edit-heading">
+      <h2 id="edit-heading">Task details</h2>
+      <form class="edit-form" action="/edit/<%= task.id %>" method="POST">
+        <label for="task-name">Task name</label>
+        <input id="task-name" name="taskName" type="text" value="<%= task.name %>" maxlength="120" required autofocus>
+        <div class="form-actions">
+          <button class="button button--primary" type="submit">Save changes</button>
+          <a class="button button--quiet" href="/">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

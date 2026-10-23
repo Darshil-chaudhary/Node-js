@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f2">
+  <title>My To-Do List</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <p class="eyebrow">A small practical project</p>
+      <h1>My To-Do List</h1>
+      <p class="intro">Keep today's work clear, one task at a time.</p>
+    </header>
+
+    <% if (message) { %>
+      <p class="notice notice--<%= messageType %>" role="<%= messageType === 'error' ? 'alert' : 'status' %>"><%= message %></p>
+    <% } %>
+
+    <section class="add-section" aria-labelledby="add-heading">
+      <h2 id="add-heading">Add a task</h2>
+      <form class="add-form" action="/add" method="POST">
+        <label class="visually-hidden" for="new-task">Task name</label>
+        <input id="new-task" name="taskName" type="text" maxlength="120" placeholder="What needs to get done?" required>
+        <button class="button button--primary" type="submit">Add task</button>
+      </form>
+    </section>
+
+    <section class="list-section" aria-labelledby="list-heading">
+      <div class="list-heading-row">
+        <h2 id="list-heading">Your tasks</h2>
+        <p class="task-counts"><span><strong><%= tasks.length %></strong> total</span><span><strong><%= completedCount %></strong> completed</span></p>
+      </div>
+
+      <% if (tasks.length === 0) { %>
+        <p class="empty-state">No tasks yet. Add one above to get started.</p>
+      <% } else { %>
+        <ul class="task-list">
+          <% tasks.forEach((task) => { %>
+            <li class="task-row<%= task.completed ? ' task-row--completed' : '' %>">
+              <div class="task-details">
+                <span class="task-name"><%= task.name %></span>
+                <span class="task-status <%= task.completed ? 'task-status--completed' : 'task-status--pending' %>"><%= task.completed ? 'Completed' : 'Pending' %></span>
+              </div>
+              <div class="task-actions" aria-label="Actions for <%= task.name %>">
+                <a class="action-link" href="/edit/<%= task.id %>">Edit</a>
+                <form action="/toggle/<%= task.id %>" method="POST">
+                  <button class="action-link" type="submit"><%= task.completed ? 'Reopen' : 'Complete' %></button>
+                </form>
+                <form action="/delete/<%= task.id %>" method="POST">
+                  <button class="action-link action-link--delete" type="submit">Delete</button>
+                </form>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

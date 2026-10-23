@@ -1,0 +1,14 @@
+{
+  "name": "convert-html-to-nodejs",
+  "version": "1.0.0",
+  "description": "Practical: Serve an HTML page using Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["nodejs", "express", "html", "practical"],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
